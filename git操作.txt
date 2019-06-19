@@ -1,9 +1,10 @@
 [基本]
 記憶領域	作業ツリー	git管理しているディレクトリの中身
-記憶領域	ローカルリポジトリ	git管理しているディレクトリ内の.gitディレクトリ
+		ローカルリポジトリ	git管理しているディレクトリ内の.gitディレクトリ
 
 コミット	タグ	リポジトリのある特定の時点
 		ブランチ	履歴を他と切り離して追跡する
+		コンフリクト	変更した箇所に矛盾がある
 
 操作	チェックアウト	リポジトリの特定の時点に移動する
 	コミット	変更を記録する
@@ -11,4 +12,28 @@
 リポジトリ	プッシュ	上流リポジトリにコミットする
 		プル	フェッチ + マージ
 		フェッチ	上流リポジトリの変更を取得するがコミットはしない
-		マージ	取得した変更をローカルリポジトリに反映する
+		マージ	変更をローカルリポジトリに反映する
+
+[インストール]
+Linux(Ubuntu)
+	依存パッケージをインストール
+		sudo apt-get build-dep git-core
+	Gitをビルド	※個人使用ならprefixはいらない
+		make prefix=/usr/local all doc
+	インストール
+		sudo make install install-doc
+	確認
+		git --version
+Windows
+	msysGit か Git on MSys をインストール
+		msysGit	http://msysgit.github.io/
+		Git on MSys	http://code.google.com/p/msysgit/
+	インストールの設定
+		Adjusting your PATH enviroment でPATHにGitを追加する
+		コマンドプロンプトからGitを実行でき、余分なファイルを追加しなくて済む
+			Run Git from the Windows Command Prompt
+		Configuring the line ending conversions で改行コードの自動変換を選択する
+		Windows <> Linux の改行コードを自動変換される
+			Checkout Windows-style, commit Unix-style line endings
+	確認
+		git --version
