@@ -1,19 +1,3 @@
-[基本]
-記憶領域	作業ツリー	git管理しているディレクトリの中身
-		ローカルリポジトリ	git管理しているディレクトリ内の.gitディレクトリ
-
-コミット	タグ	リポジトリのある特定の時点
-		ブランチ	履歴を他と切り離して追跡する
-		コンフリクト	変更した箇所に矛盾がある
-
-操作	チェックアウト	リポジトリの特定の時点に移動する
-	コミット	変更を記録する
-
-リポジトリ	プッシュ	上流リポジトリにコミットする
-		プル	フェッチ + マージ
-		フェッチ	上流リポジトリの変更を取得するがコミットはしない
-		マージ	変更をローカルリポジトリに反映する
-
 [インストール]
 Linux(Ubuntu)
 	依存パッケージをインストール
@@ -37,3 +21,54 @@ Windows
 			Checkout Windows-style, commit Unix-style line endings
 	確認
 		git --version
+
+
+[設定]
+ユーザ名	git config --global user.name ユーザ名
+メールアドレス	git config --global user.name パスワード
+出力の色分け	git config --global color.ui "auto"
+確認	git config --global --list
+
+
+[ヘルプ]
+ローカル	git help コマンド
+オンライン	http://kernel.org/pub/software/scm/git/
+
+
+[ローカルリポジトリの作成]
+作成	git init
+クローン	git clone リモートリポジトリのURL
+
+
+[ステージング]
+ステージング	git add ファイル
+
+
+[コミット]
+コミット	git commit
+１行メッセージ	git commit -m "メッセージ"
+add + commit	git commit -a	※対象は追跡中のファイルのみ
+
+
+[コミット履歴を表示]
+表示	git log
+個数を指定	git log -個数
+
+
+[変更状態を表示]
+表示	git status
+
+
+[ブランチ]
+作成	git branch ブランチ名 ソースブランチ
+移動	git checkout 移動先のブランチ
+削除	git branch -d ブランチ名
+
+
+[タグ]
+作成	git tag タグ名 ソース	※ソース: ブランチ、タグ
+一覧表示	git tag
+
+
+[リベース]
+リベース	git rebase ブランチ	※他のブランチの変更を取り込む
