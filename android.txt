@@ -1,0 +1,98 @@
+[設定]
+Configure > Settings
+
+文字コード
+	プロジェクト
+		Editor > File Encodings > Project Encoding
+		Editor > File Encodings > Properties Files > Default encoding for properties files
+
+行番号の表示
+	Editor > General > Appearance > Show line numbers
+
+紛らわしいヒントを非表示
+	Editor > General > Appearance > Show parameter name hints
+
+import文の折りたたみ
+	Editor > General > Code Folding > imports
+
+コード補完で大文字小文字の区別をしない
+	Editor > General > Code Completion > Match case
+
+画面デザインを変更
+	Appearance & Behavior > Appearance > UI Options > Theme
+
+
+[エミュレータ]
+ボタン
+	ホームボタン	●
+	アプリ		■
+	戻る		左▲
+
+準備
+	BIOSの仮想化技術をON
+		BIOS ＞ Advanced > ON
+
+設定
+	Tools ＞ AVD Manager > Actions > 右▲ ＞ 画面下からスワイプ ＞ Setting
+
+	日本語化
+		System ＞ Languages & input ＞ Language ＞ Add a Language ＞ 日本語 ＞ 日本語を上にドラッグ
+	
+	日本時間を使用
+		System ＞ Date & times
+
+仮想デバイスの作成
+	Tools ＞ AVD Manager ＞ Actions ＞ 鉛筆アイコン
+
+
+[エラー]
+エミュレータ起動時にエラー表示
+	原因不明
+	バグ？
+
+
+[プラグイン]
+日本語化
+	Pleiades	http://mergedoc.osdn.jp/
+		選択	インストール先\Android Studio\bin\studio64.exe
+	
+	英語表示に戻す
+		設定ファイルを編集
+			場所	ホームディレクトリ/.AndroidStudio[バージョン番号]/config/studio64.exe.vmoptions
+			編集	#でコメント化
+					#-Xverify:none
+					#-Javaagent:設定ファイルのパス/jp.sourceforge.mergedoc.pleiades.jar
+
+Vim
+	IdeaVim		公式プラグイン
+			https://github.com/JetBrains/ideavim
+
+		インストール
+			Preferences > Plugins
+
+		設定ファイル
+			ホームディレクトリ/.ideavimrc
+
+		利用可能なオプション	https://github.com/JetBrains/ideavim/blob/master/doc/set-commands.md
+
+
+[プロジェクト]
+作成
+	新規プロジェクト ＞ Phone and Tablet ＞ Empty Activity ＞ ... ＞ Minimum API level ＞ API16: Android 4.1 (Jelly Bean)
+
+
+[ショートカットキー]
+フォーカス
+	エディター			Esc
+	エディター ＞ 直前のウィンドウ	F12
+
+コード補完
+	スマート	<C-S-Space>
+
+コード生成
+	アクセサ		<A-Insert>
+	コンストラクタ		<A-Insert>
+	制御文			<C-A-t>
+
+リファクタリング
+	名前変更	<S-F6>

@@ -1,0 +1,79 @@
+[コマンドの命名規則]
+動詞―名詞
+	動詞	Get, Stop
+	名詞	Computer
+
+
+[構文]
+コマンド -オプション 対象
+
+
+[エイリアス]
+構文
+	ex)	gi	Get-Item
+
+表示
+	一覧表示	Get-Alias
+				get-al<Tab>
+
+	エイリアス	Get-Alias -Definition コマンド
+
+	コマンド	Get-Alias エイリアス
+
+
+[ヘルプ]
+基本構文
+	Get-Help 対象
+	コマンド -?
+
+		対象	コマンド、関数
+
+コマンド一覧
+	Get-Help -Category Cmdlet
+
+使用例を表示
+	Get-Help コマンド -Examples
+
+コマンド一覧を表示	Get-Command キーワード
+	動詞で検索	Get-Command -Verb キーワード
+	名詞で検索	Get-Command -Noun キーワード
+
+オブジェクトのメンバー
+	オブジェクト | Get-Member
+
+
+[ディレクトリ]
+カレントディレクトリを表示
+	Get-Location
+
+移動
+	Set-Location -Path パス
+		-Pathは省略可
+
+プッシュ＋移動
+	Push-Location -Path パス
+
+ポップ移動
+	Pop-Location -Path パス
+
+
+[ファイル]
+一覧表示	Get-ChildItem
+			ls
+			get-ch<Tab>
+
+
+[画面]
+クリア	Clear-Host
+
+
+[シャットダウン]
+ログオフ
+	shutdown.exe -l		※L
+
+再起動
+	Restart-Computer
+
+シャットダウン
+	Stop-Computer
+	sto<Tab>

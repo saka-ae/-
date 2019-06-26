@@ -1,0 +1,90 @@
+[設定]
+ビルドファイル	build.gradle
+設定ファイル	settings.gradle
+
+
+[プロジェクト]
+作成
+	Java	gradle init --type java-library
+
+変換
+	eclipse
+		設定ファイル
+			apply plugin: 'eclipse'
+			
+		コマンド
+			gradle eclipse
+
+		eclipse関連のファイル
+			.setting
+			.classpath
+			.project
+
+
+[ビルドファイル]
+基本構文
+	apply plugin: 'プラグイン'
+
+	repositories {
+		リポジトリ
+	}
+
+	dependencies {
+		ライブラリ
+	}
+
+	task タスク {
+		アクション {
+			処理
+		}
+	}
+
+
+プラグイン
+	java		Java
+	eclipse		eclipse用に変換
+	application	実行
+
+リポジトリ
+	jcenter()	デフォルト
+		検索サイト	https://bintray.com/bintray/jcenter
+	mavenCentral()	mavenリポジトリ
+		検索サイト	https://search.maven.org/
+
+ライブラリ
+	compile		コンパイル用
+	testCompile	テストユニット
+		※結果はbuild/reports/tests/test/index.htmlで確認
+
+タスク
+	他のタスクを呼び出す	タスク(dependsOn: [タスク, ...])
+	
+	他のタスクを直接実行	tasks.タスク.execute()
+
+アクション
+	doFirst		最初に実行される
+	doLast		最後に実行される
+
+
+[設定ファイル]
+基本構文
+	rootProject.name = 'プロジェクト'	※単一のプロジェクトでも記述
+
+
+[実行]
+基本構文
+	gradle タスク -P引数=値 ...
+
+ビルド
+	gradle build
+
+Javaプラグイン
+	java	buildと同じ
+	test	テストを実行
+	jar	jar化
+	clean	消去
+
+applicationプラグイン
+	run	指定したクラスを実行
+	
+	mainClassName = "フルパス"	実行するクラスを指定

@@ -1,0 +1,19 @@
+[乱数]
+クラス
+	java.lang.Math		[0, 1)の小数
+
+	java.util.Random	整数を生成できる
+		ジェネレータを生成
+			Random ジェネレータ = new Random();
+
+	ThreadLocalRandom	マルチスレッド用
+
+整数
+	Random
+		int 乱数 = ジェネレータ.nextInt(上限 + 1);
+			０～上限
+
+小数
+	Math
+		double 乱数 = Math.random();
+			[0, 1)

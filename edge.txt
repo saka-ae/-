@@ -1,0 +1,11 @@
+[カーソル]
+移動
+	アドレスバー	Ctrl + L
+
+
+[タブ]
+新規	Ctrl + t
+閉じる	Ctrl + w
+移動
+	次	Ctrl + Tab
+	前	Ctrl + Shift + Tab

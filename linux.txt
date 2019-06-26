@@ -1,0 +1,128 @@
+[パーティション]
+基本構成
+	ルート
+
+	スワップ領域
+		メモリの１～２倍
+	
+	データ
+		必要なら
+		/homeを割り当てる
+
+
+[パッケージ管理]
+Debian形式
+	aptitude サブコマンド
+		依存関係を調整
+		Advanced Packaging Tool と aptitude（適正）を掛けている？
+
+		サブコマンド
+			install		インストール or 更新
+
+			upgrade		全パッケージを安全に更新
+			dist-upgrade	Debianのシステムを更新
+			update		パッケージのデータベースを更新
+
+			purge		削除
+			remove		設定ファイルを残して削除
+
+			show パッケージ名	パッケージ情報を表示
+			search パターン		正規表現でパッケージを検索
+
+	設定ファイル
+		/etc/apt/sources.list	パッケージ管理サイトを記述
+			記述内容
+				取得するタイプ URL バージョンの種類 著作権のタイプ
+
+					取得するタイプ
+						deb		パッケージ
+						
+
+					バージョンの種類
+						stable		安泰版
+						lenny
+						squeeze
+						wheezy
+
+					著作権のタイプ
+						main		フリー
+						contrib		フリーでない
+						non-free	再配布に制限あり
+
+
+RPM形式
+	YUM サブコマンド
+		Yellow dog Updater, Modified
+
+		サブコマンド
+			install パッケージ名	インストール
+			groupinstall グループ	グループのパッケージをインストール
+					グループ	パッケージをグループ化したもの
+
+			check-update		更新を確認
+			update パッケージ名	更新
+
+			remove パッケージ名	削除
+
+			list			リポジトリにある全パッケージ情報を表示
+			grouplist		全パッケージグループリストを表示
+			repolist		リポジトリの一覧を表示
+
+			info パッケージ名	パッケージの情報を表示
+			search all キーワード	パッケージ名、説明文を含めてパッケージを検索
+			search キーワード	パッケージを検索
+
+	設定ファイル
+		/etc/yum.conf		パッケージのキャッシュディレクトリ、ログファイル
+
+		/etc/yum.repos.d	リポジトリ情報
+
+
+[起動]
+再起動
+	shutdown -r now
+
+シャットダウン
+	shutdown -h now
+
+
+[動画編集]
+DVDリッピング
+	コマンド
+		dd if=デバイス of=isoファイルのフルパス
+
+	AcetoneISO
+		インストール
+			kommanderとp7zipをインストール
+				apt install -y kommander p7zip
+
+			AcetoneISOをインストール
+				apt install -y acetoneiso
+
+		CD/DVDイメージをマウント
+			File > Open Image
+
+		avi形式でリッピング
+			video
+
+動画編集
+	Avidemux
+			
+動画をダウンロード
+	you-getをインストール
+		python3をインストール
+			apt install python3-distutils
+			apt-get python3-pip
+
+		you-getをインストール
+			pip3 install you-get
+
+	ダウンロード
+		you-get 'URL'
+
+	保存形式を指定してダウンロード
+		保存形式を検索
+			you-get -i 'URL'
+
+		保存形式を指定してダウンロード
+			you-get --itag=番号 'URL’

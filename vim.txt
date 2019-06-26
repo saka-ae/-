@@ -1,24 +1,90 @@
 [設定]
-設定ファイルを作成
-	_gvimrcの前に_vimrcが読み込まれる
-	以下の順序で検索される
-		ホームディレクトリ/_vimrc
-		ホームディレクトリ/.vimrc
-		インストール先/_vimrc
-		インストール先/.vimrc
-ファイルの保存先を変更
-	viminfo		set viminfo+=n{ファイルパス}
-	バックアップファイル	set backupdir={ディレクトリ}
-	スワップファイル	set directory={ディレクトリ}
-	undoファイル	set undodir={ディレクトリ}
-ファイルを保存しない
-	viminfo		set viminfo=
-	バックアップファイル	set nobackup
-	スワップファイル	set noswapfile
-	undoファイル	set noundofile
+基本構文
+	設定
+		:set オプション
+		:set オプション=値
 
-行番号表示	:set number
-自動インデント	:set autoindent
+	オプション
+		設定
+			ブール値
+				ON	:set オプション
+				OFF	:set noオプション
+				トグル	:set オプション!
+
+			デフォルト値	:set オプション&
+
+		現在の値を表示
+			:set オプション?
+
+行番号を表示	:set number
+
+タブの桁数	:set tabstop=数字
+
+
+[カスタマイズ]
+	設定ファイルを作成
+		_gvimrcの前に_vimrcが読み込まれる
+		以下の順序で検索される
+			ホームディレクトリ/_vimrc
+			ホームディレクトリ/.vimrc
+			インストール先/_vimrc
+			インストール先/.vimrc
+
+	ファイルの保存先を変更
+		viminfo		set viminfo+=n{ファイルパス}
+		バックアップファイル	set backupdir={ディレクトリ}
+		スワップファイル	set directory={ディレクトリ}
+		undoファイル	set undodir={ディレクトリ}
+
+	ファイルを保存しない
+		viminfo		set viminfo=
+		バックアップファイル	set nobackup
+		スワップファイル	set noswapfile
+		undoファイル	set noundofile
+
+	文字コード
+		バッファの文字コード
+			set encoding utf-8
+		
+		ファイルの書き出し時の文字コード
+				※ファイル読み込み時はfileencodingsの値がセットされる
+			set fileencoding utf-8
+
+		ファイルの読み込み時の文字コード
+			set fileencodings=utf-8,cp932,sjis,default
+
+		自動改行しない
+			set formatoptions=q
+
+		行番号表示
+			set number
+
+		自動インデント
+			set autoindent
+
+		挿入モードから戻る時に日本語入力の状態を保存してOFFにする
+			set iminsert=2
+
+		検索パターン時は入力の状態を維持する
+			set imsearch=0
+
+
+[gvimの設定]
+画面スクロールのキーマップ
+	noremap <silent> <C-F> <PageDown>
+	noremap <silent> <C-B> <PageUp>
+
+起動時に最大化
+	au GUIEnter * simalt ~
+
+画面の配色
+	colorscheme evening
+		編集 ＞ 色テーマ選択で確認可能
+			※保存はされない
+
+
+[文字コード]
+文字コードを指定して開きなおす	:e ++enc=文字コード
 
 
 [マクロ]
@@ -36,12 +102,21 @@
 	前	b	※単語の途中ならその単語
 	次の末尾	e	※単語の途中ならその単語
 	前の末尾	ge
-文	次	)
+段落	次	)	※段落～空白
 	前	(
-段落	次	}
+	次	}	※空白～空白
 	前	{
 シンボル	対	%
 行	指定行	数G
+
+画面
+	一画面	次	Ctrl + b	back
+		前	Ctrl + f	forward
+	半画面	次	Ctrl + u	up
+		前	Ctrl + d	down
+	位置	上端	zt
+		中央	zz
+		下端	zb
 
 
 [検索]
@@ -53,7 +128,27 @@
 	前	?単語
 	繰り返し	n
 	戻る	N
-	完全一致	<単語>
+	完全一致	/<単語>
+	カーソルの単語
+		次	*
+		前	#
+
+検索後のハイライトを消す
+	:nohlsearch	次回の検索ではまたハイライトされる
+
+
+[置換]
+:{範囲}s[ubstitute]/{対象}/{置換文字列}/{フラグ}
+	範囲
+		%	全体
+	フラグ
+		g	行内の全て	global
+		c	確認する
+
+フラグ
+	全てを対象にする	g	globally
+	確認	c	confirm
+	直前の置換コマンドと同じ	&
 
 
 [モード]
@@ -91,3 +186,78 @@
 			単語	iw
 			単語 + 空白	dw
 
+
+[テキスト補完]
+プログラミング言語
+	設定
+		言語用のプラグインを追加
+			標準サポートの言語を確認	:h compl-omni-filetypes
+
+		ファイルを読み込む	essential.vim
+
+		設定ファイル
+			set nocompatible
+			filetype plugin on
+
+	コード補完	<C-x><C-o>
+
+
+[複数のファイル]
+開く	:edit {ファイルのフルパス}
+		%:h > Tab	作業ディレクトリを入力
+		%:h	ファイルパス - ファイル名
+		%	現在のバッファのファイルパス
+
+移動	次	:bnext
+	前	:bprev
+	先頭	:bfirst
+	末尾	:blast
+	指定	:buffer 数字
+		:buffer {ファイル名}
+	1つ前	Ctrl + ^
+			※バグにより、Windowsのコンソールで機能しない
+			代替	Ctrl + 6
+
+閉じる
+	現在のバッファ	:bdelete
+	範囲を指定	:始,終bdelete
+
+表示
+	ファイル一覧	:ls
+			%	現在のファイル
+			#	直前のファイル
+
+	作業ディレクトリ	:pwd
+
+	移動
+		移動	:cd パス
+		戻る	:cd -
+
+
+[画面分割]
+分割	垂直	Ctrl + w > v
+	水平	Ctrl + w > s
+		現在のファイルを分割表示
+ファイル割り当て	:edit {ファイル}	現在のウィンドウ
+分割 ＋ ファイル割り当て	垂直	:vsp[lit] {ファイル}
+				水平	:sp[lit] {ファイル}
+
+移動	次	Ctrl + w > w
+	方向	Ctrl + w > hjkl
+			Ctrlは押したままでもいい
+
+閉じる	現在	:clo[se]
+	現在以外	:on[ly]
+
+
+[タブ]
+作成	新規	:tabe[dit]
+	ファイルを指定	:tabedit {ファイル}
+	現在のウィンドウを割り当て	Ctrl + w > t
+
+移動	次	gt
+	前	gT
+	指定	{番号}gt
+
+閉じる	現在	:tabc[lose]
+	現在以外	:tabo[nly]

@@ -41,34 +41,201 @@ SSH鍵
 オンライン	http://kernel.org/pub/software/scm/git/
 
 
-[ローカルリポジトリの作成]
-作成	git init
-クローン	git clone リモートリポジトリのURL
+[リポジトリ]
+origin		デフォルトのリモートリポジトリ名
+
+作成
+	ローカルリポジトリの作成	git init
+
+	リモートリポジトリからクローン	
+		リモートリポジトリ名で作成	git clone リモートリポジトリのURL
+		ディレクトリ名を指定		git clone リモートリポジトリのURL ディレクトリ名
+	
+	ローカルからリモートリポジトリを作成
+		リモートリポジトリを追加	git remote add origin リモートリポジトリのURL
+		プロジェクトを追加		git push origin master
+
+更新
+	fetch + merge	git pull
+	更新をステージ	git fetch	※ローカル内に取り込んだリモートリポジトリ
+
+変更を送信
+	git push
 
 
 [ステージング]
-ステージング	git add ファイル
+指定	git add ファイル
+対話	git add -i	ステージング、元に戻す、対象ファイルの追加、ステータス表示、差分表示
 
 
 [コミット]
-コミット	git commit
 １行メッセージ	git commit -m "メッセージ"
+メッセージをエディタで編集	git commit
 add + commit	git commit -a	※対象は追跡中のファイルのみ
+指定	git commit ファイル ...
+
+
+[コミットの修正]
+訂正して直前のコミットと合わせて1つにする
+	git commit --amend
+
+逆順に取り消してステージングする
+	指定	git revert -n コミット
+			※コンフリクトを避けるために、最新のコミットから逆順に取り消していく
+
+取り消す
+	ステージング	git reset --soft 対象
+				対象の時点より後のコミットはステージされる
+				対象	コミット
+
+	削除		git reset --hard 対象
+
+	対話モード	git rebase -i 対象
+				対象より後のコミットを編集する
+		表示の順序	古→新
+				git logとは逆順
+
+		順序の変更	表示行を入れ替える
+
+		複数のコミットを１つにする
+			新しい方をsquash
+
+		コミットを複数に分割
+			editを指定
+			editのコミットに移行
+			HEADをリセット		git reset HEAD^
+			変更してコミット
+			修正を終了		git rebase --continue
 
 
 [コミット履歴を表示]
 表示	git log
+		lessコマンドで操作する
+			h	ヘルプ
+			q	終了
+			f or b	画面の前後
+			g or G	先頭 / 末尾
+			/ or ?	検索
+				n or N	前後
+			&検索	マッチする行を抽出
+
+差分を表示	git log -p
+
 個数を指定	git log -個数
+
+指定したコミットから始まるログ	git log コミットのハッシュ
+
+期間を指定
+	git log --オプション="数字 単位"
+		オプション
+			以降	since
+			以前	before
+		単位
+			時間	hours
+			分	minutes
+			年月日	yyyy-mm.dd
+
+範囲を指定
+	git log 始..終	※(始,終]
+		始終	コミットのハッシュ、HEAD、タグ
+			※終を省略するとHEADを指定と同じ
+		記号
+			^	-1	※^^は-2
+				※Windowsでは""で囲む必要がある
+			~数字	-数字	※^^^、^-2は-3
+
+
+表示形式を指定
+	短いハッシュ値＋1行のログメッセージ	git log --pretty=format:"%h %s"
 
 
 [変更状態を表示]
 表示	git status
 
 
+[差分]
+ファイル間
+	基本構文
+		git diff 対象1 対象2
+			※対象2を省略するとHEADを指定したのと同じ
+			  範囲やオプションにgit logと同じものが使える
+
+	作業ツリー ＜＞ ステージングエリア	git diff
+
+	ステージングエリア ＜＞ リポジトリ	git diff -cached
+
+	作業ツリー ＜＞ リポジトリ	git diff HEAD
+		HEAD	現在のブランチの最新コミット
+		+	追加
+		-	削除
+	作業ツリー ＜＞ コミット	git diff コミットのハッシュ
+
+ファイル内
+	基本構文
+		git blame ファイル
+	
+	表示内容
+		ハッシュ値 ファイル名 実行者 日付 ファイル内容
+			^	最初のコミット
+	
+	全体
+		git blame ファイル
+	
+	範囲指定
+		git blame -L 始,終
+			始終	行番号、正規表現、git logの範囲指定
+			終	+/-数字
+			正規表現	"/パターン/"
+	
+	ファイル名を指定
+		git blame -- ファイル名
+
+
+[ファイルの移動]
+移動	git mv 対象 移動先	追跡登録や対象の削除をやってくれる
+
+
 [ブランチ]
-作成	git branch ブランチ名 ソースブランチ
+作成
+	現在のブランチから分岐	git branch ブランチ名 ソースブランチ
+	ブランチを指定	git branch ブランチ名 ソースブランチ
+
 移動	git checkout 移動先のブランチ
-削除	git branch -d ブランチ名
+
+作成＋移動	git checkout -b ブランチ名 ソースブランチ
+削除
+	削除	git branch -d ブランチ名
+	強制	git branch -D ブランチ名
+
+一覧表示
+	ローカル		git branch
+	ローカル＋リモート	git branch -r
+
+ブランチ名の変更	git branch -m 対象 新しい名前	※move
+
+
+[マージ]
+マージ	別のブランチの履歴を反映する	merge
+	git merge 対象のブランチ
+
+圧縮コミット	ブランチの履歴を１つのコミットに圧縮して別のブランチに【ステージ】する	squash
+	git merge --squah 対象のブランチ
+
+チェリーピック	別のブランチから反映したいコミットを選ぶ	cherry pick
+	選択＋反映	git cherry-pick コミットのハッシュ
+	ステージ	git cherry-pick -n コミットのハッシュ
+
+
+[コンフリクト]
+内容
+	<<<<<<< HEAD:ファイル名
+		現在のブランチの変更	ヘッドからの変更
+	=======
+		マージ対象の変更
+	>>>>>>> ブランチ名:ファイル名
+
+修正
+	ツール	git mergetool
 
 
 [タグ]
